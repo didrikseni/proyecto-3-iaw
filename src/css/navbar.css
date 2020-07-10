@@ -1,13 +1,13 @@
 /* Custom navbar */
 
 .custom-text-navbar {
-    color: #eeeeee !important;
+    color: var(--font-navbar) !important;
 }
 
 nav {
     width: auto;
     margin: 0 auto;
-    background: #5e548e !important;
+    background: var(--color-accent) !important;
     padding: 50px 0;
 }
 
@@ -28,11 +28,11 @@ nav ul li a {
 }
 
 .page-footer {
-    margin-top:auto;
+    margin-top: auto;
     width: auto;
 }
 
 .sticky-footer {
     flex-shrink: 1;
-    background-color: #5e548e !important;
+    background-color: var(--color-accent) !important;
 }
