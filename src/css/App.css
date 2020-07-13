@@ -64,9 +64,9 @@ h4 {
 
 hr {
   display: block;
-  height: 5px;
+  height: 2px;
   border: 0;
-  border-top: 15px solid var(--color-accent);
+  border-top: 1px solid var(--color-accent);
   margin: 1em;
   padding: 0;
 }

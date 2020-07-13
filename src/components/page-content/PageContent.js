@@ -14,9 +14,7 @@ function Profile(props) {
         </div>
         <p className="custom-text text-center">{props.email}</p>
         <div className="text-center p-5">
-          <a href="/profile" className="card-link custom-button">
-            Modificar perfil
-          </a>
+          <button className="card-link custom-button">Modificar perfil</button>
         </div>
       </div>
     </div>
@@ -32,10 +30,18 @@ class PageContent extends React.Component {
   render() {
     return (
       <div className="container page-content">
-        <div className="row my-5">
-          <Profile username={this.props.username} email={this.props.email} />
-          <Articles />
-        </div>
+        {this.props.isLoggedIn ? (
+          <div className="row mb-5">
+            <Profile username={this.props.username} email={this.props.email} />
+            <div className="col-sm-8">
+              <Articles />
+            </div>
+          </div>
+        ) : (
+          <div className="my-5">
+            <Articles />
+          </div>
+        )}
       </div>
     )
   }
