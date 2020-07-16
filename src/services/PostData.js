@@ -1,5 +1,6 @@
 function PostData(type, data) {
   let BaseUrl = 'http://127.0.0.1/api/'
+  //let BaseUrl = 'https://portal-uns.herokuapp.com/api/'
   return new Promise((resolve, reject) => {
     fetch(BaseUrl + type, {
       method: 'POST',

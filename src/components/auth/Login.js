@@ -33,18 +33,11 @@ class Login extends React.Component {
       <div className="row justify-content-center">
         <div class="form-group m-2">
           <label for="">Usuario</label>
-          <input type="text" class="form-control my-2" name="username" id="" placeholder="Usuario" onChange={this.onChange} />
+          <input type="text" class="form-control my-2" name="username" placeholder="Usuario" onChange={this.onChange} />
           <label for="">Contraseña</label>
-          <input type="password" class="form-control my-2" name="password" id="" placeholder="Contraseña" onChange={this.onChange} />
+          <input type="password" class="form-control my-2" name="password" placeholder="Contraseña" onChange={this.onChange} />
           <label for="">Repetir Contraseña</label>
-          <input
-            type="password"
-            class="form-control my-2"
-            name="confirm_passowrd"
-            id=""
-            placeholder="Confirmar contraseña"
-            onChange={this.onChange}
-          />
+          <input type="password" class="form-control my-2" name="confirm_passowrd" placeholder="Confirmar contraseña" onChange={this.onChange} />
           <input type="submit" value="Login" className="custom-button my-2" onClick={this.login} />
         </div>
       </div>
