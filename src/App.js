@@ -14,6 +14,21 @@ class App extends React.Component {
     };
 
     this.handleLogin = this.handleLogin.bind(this);
+    this.checkLoginStatus = this.checkLoginStatus.bind(this);
+  }
+
+  componentDidMount() {
+    this.checkLoginStatus();
+  }
+
+  checkLoginStatus() {
+    fetch('http://127.0.0.1:8000/api/logged_in', {
+      withCredentials: true,
+    })
+      .then((response) => console.log('logged in ? ', response))
+      .catch((error) => {
+        console.log('check login error', error);
+      });
   }
 
   handleLogin(data) {

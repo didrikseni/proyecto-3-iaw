@@ -20,7 +20,7 @@ class Login extends React.Component {
         .then((res) => res.json())
         .then((resJSON) => {
           if (resJSON.userData) {
-            console.log(resJSON.userData);
+            // console.log(resJSON.userData);
             this.props.handleSuccesfulAuth(resJSON.userData);
           } else {
             console.log('Error loggin in');
