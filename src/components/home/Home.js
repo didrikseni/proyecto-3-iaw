@@ -16,6 +16,9 @@ class Home extends React.Component {
       redirect: 'HOME_PAGE',
     };
     this.handleSuccesfulAuth = this.handleSuccesfulAuth.bind(this);
+    this.redirectLogin = this.redirectLogin.bind(this);
+    this.redirectRegister = this.redirectRegister.bind(this);
+    this.redirectHome = this.redirectHome.bind(this);
   }
 
   handleSuccesfulAuth(data) {
@@ -27,20 +30,49 @@ class Home extends React.Component {
     });
   }
 
+  redirectLogin() {
+    if (!this.isLoggedIn && this.state.redirect !== 'LOGIN') {
+      this.setState({
+        redirect: 'LOGIN',
+      });
+    }
+  }
+
+  redirectRegister() {
+    if (!this.isLoggedIn && this.state.redirect !== 'REGISTER') {
+      this.setState({
+        redirect: 'REGISTER',
+      });
+    }
+  }
+
+  redirectHome() {
+    if (!this.isLoggedIn && this.state.redirect !== 'HOME_PAGE') {
+      this.setState({
+        redirect: 'HOME_PAGE',
+      });
+    }
+  }
+
   render() {
     return this.state.redirect === 'HOME_PAGE' ? (
       <>
-        <Navbar isLoggedIn={this.state.isLoggedIn} user={this.state.user} />
+        <Navbar
+          isLoggedIn={this.state.isLoggedIn}
+          user={this.state.user}
+          redirectLogin={this.redirectLogin}
+          redirectRegister={this.redirectRegister}
+        />
         <PageContent isLoggedIn={this.state.isLoggedIn} user={this.state.user} />
         <Footer />
       </>
     ) : this.state.redirect === 'LOGIN' ? (
       <>
-        <Login handleSuccesfulAuth={this.handleSuccesfulAuth} />
+        <Login handleSuccesfulAuth={this.handleSuccesfulAuth} redirectHome={this.redirectHome} redirectRegister={this.redirectRegister} />
       </>
     ) : (
       <>
-        <Register handleSuccesfulAuth={this.handleSuccesfulAuth} />
+        <Register handleSuccesfulAuth={this.handleSuccesfulAuth} redirectHome={this.redirectHome} redirectLogin={this.redirectLogin} />
       </>
     );
   }
