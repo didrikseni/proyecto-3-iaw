@@ -24,6 +24,7 @@ class Home extends React.Component {
   handleSuccesfulAuth(data) {
     //this.props.handleLogin(data);
     //this.props.history.push('/dashboard');
+    console.log(data);
     this.setState({
       isLoggedIn: true,
       user: data,
@@ -55,7 +56,7 @@ class Home extends React.Component {
   }
 
   render() {
-    return this.state.redirect === 'HOME_PAGE' ? (
+    return this.state.isLoggedIn || this.state.redirect === 'HOME_PAGE' ? (
       <>
         <Navbar
           isLoggedIn={this.state.isLoggedIn}

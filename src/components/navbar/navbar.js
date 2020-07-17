@@ -1,5 +1,8 @@
 import React from 'react';
 import '../../css/navbar.css';
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.js';
 
 function NavbarList(props) {
   return props.isLoggedIn ? (
@@ -11,12 +14,17 @@ function NavbarList(props) {
       </li>
       <li className="mx-2 nav-item">
         <div className="nabvar-item nav-pills nabvar">
-          <h5 className="custom-text-navbar">{props.user.user.name}</h5>
-        </div>
-      </li>
-      <li className="mx-2 nav-item">
-        <div className="nabvar-item nav-pills nabvar">
-          <h5 className="custom-text-navbar">Salir</h5>
+          <div class="dropdown">
+            <button className="dropdown-toggle custom-text-navbar button-link" data-toggle="dropdown">
+              {props.user.user.name}
+            </button>
+            <div class="dropdown-menu dropdown-menu-sm-right">
+              <button class="dropdown-item button-link">Editar perfil</button>
+              <button class="dropdown-item button-link">Action2</button>
+              <div class="dropdown-divider"></div>
+              <button class="dropdown-item button-link">Salir</button>
+            </div>
+          </div>
         </div>
       </li>
     </ul>
@@ -58,7 +66,7 @@ class Navbar extends React.Component {
         <div className="ml-auto">
           <NavbarList
             isLoggedIn={this.props.isLoggedIn}
-            username={this.props.user}
+            user={this.props.user}
             redirectLogin={this.props.redirectLogin}
             redirectRegister={this.props.redirectRegister}
           />

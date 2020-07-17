@@ -5,7 +5,7 @@ function SearchBar() {
     <div className="row">
       <div className="col-8">
         <div className="form-group">
-          <label for="">Buscar Artículo</label>
+          <label>Buscar Artículo</label>
           <input type="text" className="form-control" name="article" aria-describedby="helpId" placeholder="Artículo" />
         </div>
       </div>

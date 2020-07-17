@@ -23,11 +23,6 @@ function Profile(props) {
 }
 
 class PageContent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = [];
-  }
-
   render() {
     return (
       <div className="container page-content my-5">
@@ -35,13 +30,13 @@ class PageContent extends React.Component {
           <div className="row mb-5">
             <Profile username={this.props.username} email={this.props.email} />
             <div className="col-sm-8">
-              <Articles />
+              <Articles redirectArticle={this.props.redirectArticle} />
             </div>
           </div>
         ) : (
           <div className="my-5">
             <SearchBar />
-            <Articles />
+            <Articles redirectArticle={this.props.redirectArticle} />
           </div>
         )}
       </div>
