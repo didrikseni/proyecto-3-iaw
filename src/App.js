@@ -12,6 +12,8 @@ class App extends React.Component {
       isLoggedIn: false,
       user: {},
     };
+
+    this.handleLogin = this.handleLogin.bind(this);
   }
 
   handleLogin(data) {
@@ -34,7 +36,7 @@ class App extends React.Component {
             <Route
               exact
               path={'/dashboard'}
-              render={(props) => <Home {...props} isLoggedIn={this.state.isLoggedIn} user={this.state.user} />}
+              render={(props) => <Home {...props} isLoggedIn={this.state.isLoggedIn} user={this.state.user} handleLogin={this.handleLogin} />}
             ></Route>
             <Route
               exact

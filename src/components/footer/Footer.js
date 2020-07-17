@@ -22,7 +22,7 @@ function Footer() {
               <div className="btn">
                 <i
                   className="fab fa-facebook-f fa-lg"
-                  onclick="
+                  onClick="
                         window.open(
                           'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
                           'facebook-share-dialog',
@@ -33,7 +33,7 @@ function Footer() {
               <div className="btn">
                 <i
                   className="fab fa-twitter p-3 fa-lg"
-                  onclick="
+                  onClick="
                         window.open(
                           'https://twitter.com/intent/tweet?url=' +encodeURIComponent(location.href),
                           'twitter-share-dialog',

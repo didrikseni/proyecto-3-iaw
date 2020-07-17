@@ -1,5 +1,6 @@
 import React from 'react';
 import Articles from './Articles';
+import SearchBar from '../search_bar/SearchBar';
 
 function Profile(props) {
   return (
@@ -39,6 +40,7 @@ class PageContent extends React.Component {
           </div>
         ) : (
           <div className="my-5">
+            <SearchBar />
             <Articles />
           </div>
         )}

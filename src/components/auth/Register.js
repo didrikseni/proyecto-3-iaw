@@ -3,20 +3,21 @@ import '../../css/Login.css';
 import '../../services/PostData';
 import { postData } from '../../services/PostData';
 
-class Login extends React.Component {
+class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
       password: '',
+      confirm_password: '',
     };
-    this.login = this.login.bind(this);
+    this.login = this.register.bind(this);
     this.onChange = this.onChange.bind(this);
   }
 
-  login() {
-    if (this.state.email && this.state.password) {
-      postData('login', this.state)
+  register() {
+    if (this.state.email && this.state.password && this.state.confirm_password) {
+      postData('register', this.state)
         .then((res) => res.json())
         .then((resJSON) => {
           if (resJSON.userData) {
@@ -47,11 +48,21 @@ class Login extends React.Component {
             <label>Contraseña</label>
             <input type="password" className="form-control my-2" name="password" placeholder="Contraseña" onChange={this.onChange} />
           </div>
-          <input type="submit" value="Login" className="custom-button mt-2" onClick={this.login} />
+          <div className="row my-2">
+            <label>Repetir Contraseña</label>
+            <input
+              type="password"
+              className="form-control my-2"
+              name="confirm_password"
+              placeholder="Confirmar Contraseña"
+              onChange={this.onChange}
+            />
+          </div>
+          <input type="submit" value="Login" className="custom-button mt-2" onClick={this.register} />
         </div>
       </div>
     );
   }
 }
 
-export default Login;
+export default Register;
