@@ -4,7 +4,7 @@ import './css/navbar.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './components/home/Home';
 import Profile from './components/profile/Profile';
-import { getDataAuth, getData } from './services/GetData';
+import {getData} from './services/GetData';
 
 class App extends React.Component {
   constructor(props) {
@@ -13,7 +13,6 @@ class App extends React.Component {
       isLoggedIn: false,
       user: {},
     };
-
     this.handleLogin = this.handleLogin.bind(this);
     this.checkLoginStatus = this.checkLoginStatus.bind(this);
   }
@@ -23,18 +22,16 @@ class App extends React.Component {
   }
 
   checkLoginStatus() {
-    let loggedIn;
-    if (localStorage.getItem('access_token')) {
-      loggedIn = getDataAuth('logged_in', localStorage.getItem('access_token'));
+    if (!sessionStorage.getItem('access_token')) {
+      this.setState({isLoggedIn: false})
     } else {
-      loggedIn = getData('logged_in');
+      getData('isLoggedIn', sessionStorage.getItem('access_token'))
+          .then((res) => res.json())
+          .then((res) => { this.setState({isLoggedIn: res.logged_in})})
+          .catch((error) => {
+            console.log('check login error', error);
+          });
     }
-    loggedIn
-      .then((res) => res.json())
-      .then((res) => console.log('logged in ? ', res))
-      .catch((error) => {
-        console.log('check login error', error);
-      });
   }
 
   handleLogin(data) {
@@ -42,7 +39,7 @@ class App extends React.Component {
       isLoggedIn: true,
       user: data,
     });
-    sessionStorage.setItem('access_token', data.user.access_token);
+    sessionStorage.setItem('access_token',  JSON.stringify(data.access_token).slice(1, -1));
   }
 
   render() {

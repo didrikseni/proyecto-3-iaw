@@ -7,23 +7,24 @@ class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      name: '',
       email: '',
       password: '',
-      confirm_password: '',
+      password_confirmation: '',
     };
-    this.login = this.register.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.register = this.register.bind(this);
   }
 
   register() {
-    if (this.state.email && this.state.password && this.state.confirm_password) {
+    if (this.state.email && this.state.password && this.state.password_confirmation) {
       postData('register', this.state)
         .then((res) => res.json())
         .then((resJSON) => {
           if (resJSON.userData) {
             this.props.handleSuccesfulAuth(resJSON.userData);
           } else {
-            console.log('Error loggin in');
+            console.log('Error on registration');
           }
         });
     }
@@ -51,6 +52,10 @@ class Register extends React.Component {
         <div className="row justify-content-center">
           <div className="form-group">
             <div className="row my-2">
+              <label>Nombre</label>
+              <input type="text" className="form-control my-2" name="name" placeholder="Nombre" onChange={this.onChange} />
+            </div>
+            <div className="row my-2">
               <label>Email</label>
               <input type="text" className="form-control my-2" name="email" placeholder="Email" onChange={this.onChange} />
             </div>
@@ -63,7 +68,7 @@ class Register extends React.Component {
               <input
                 type="password"
                 className="form-control my-2"
-                name="confirm_password"
+                name="password_confirmation"
                 placeholder="Confirmar Contraseña"
                 onChange={this.onChange}
               />
