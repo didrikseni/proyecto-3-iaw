@@ -4,6 +4,7 @@ import './css/navbar.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './components/home/Home';
 import Profile from './components/profile/Profile';
+import { getDataAuth, getData } from './services/GetData';
 
 class App extends React.Component {
   constructor(props) {
@@ -22,10 +23,15 @@ class App extends React.Component {
   }
 
   checkLoginStatus() {
-    fetch('http://127.0.0.1:8000/api/logged_in', {
-      withCredentials: true,
-    })
-      .then((response) => console.log('logged in ? ', response))
+    let loggedIn;
+    if (localStorage.getItem('access_token')) {
+      loggedIn = getDataAuth('logged_in', localStorage.getItem('access_token'));
+    } else {
+      loggedIn = getData('logged_in');
+    }
+    loggedIn
+      .then((res) => res.json())
+      .then((res) => console.log('logged in ? ', res))
       .catch((error) => {
         console.log('check login error', error);
       });
@@ -36,6 +42,7 @@ class App extends React.Component {
       isLoggedIn: true,
       user: data,
     });
+    sessionStorage.setItem('access_token', data.user.access_token);
   }
 
   render() {
@@ -47,17 +54,13 @@ class App extends React.Component {
               exact
               path={'/'}
               render={(props) => <Home {...props} isLoggedIn={this.state.isLoggedIn} user={this.state.user} handleLogin={this.handleLogin} />}
-            ></Route>
+            />
             <Route
               exact
               path={'/dashboard'}
               render={(props) => <Home {...props} isLoggedIn={this.state.isLoggedIn} user={this.state.user} handleLogin={this.handleLogin} />}
-            ></Route>
-            <Route
-              exact
-              path={'/profile'}
-              render={(props) => <Profile {...props} isLoggedIn={this.state.isLoggedIn} user={this.state.user} />}
-            ></Route>
+            />
+            <Route exact path={'/profile'} render={(props) => <Profile {...props} isLoggedIn={this.state.isLoggedIn} user={this.state.user} />} />
           </Switch>
         </BrowserRouter>
       </div>
