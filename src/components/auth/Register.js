@@ -24,12 +24,12 @@ class Register extends React.Component {
         .then((resJSON) => {
           if (resJSON.userData) {
             this.props.handleLogin(resJSON.userData);
+            this.props.history.push('/dashboard');
           } else {
             console.log('Error on registration');
           }
         });
     }
-    this.props.history.push('/dashboard');
   }
 
   onChange(elem) {

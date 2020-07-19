@@ -1,7 +1,6 @@
 import React from 'react';
 import '../../css/navbar.css';
 import '../../css/App.css';
-import { Pulse } from 'react-awesome-reveal';
 
 class Footer extends React.Component {
   constructor(props) {
@@ -57,18 +56,14 @@ class Footer extends React.Component {
               <p className="custom-text-navbar">Acerca del autor</p>
             </div>
             <div className="col-auto">
-              <Pulse>
-                <a href="https://github.com/didrikseni">
-                  <i className="fab fa-github"></i>
-                </a>
-              </Pulse>
+              <a href="https://github.com/didrikseni">
+                <i className="fab fa-github"></i>
+              </a>
             </div>
             <div className="col-auto">
-              <Pulse>
-                <a href="https://www.linkedin.com/in/iandidriksen/">
-                  <i className="fab fa-linkedin-in"></i>
-                </a>
-              </Pulse>
+              <a href="https://www.linkedin.com/in/iandidriksen/">
+                <i className="fab fa-linkedin-in"></i>
+              </a>
             </div>
           </div>
         </div>

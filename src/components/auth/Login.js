@@ -22,12 +22,12 @@ class Login extends React.Component {
         .then((resJSON) => {
           if (resJSON.userData) {
             this.props.handleLogin(resJSON.userData);
+            this.props.history.push('/dashboard');
           } else {
             console.log('Error loggin in');
           }
         });
     }
-    this.props.history.push('/dashboard');
   }
 
   onChange(elem) {
