@@ -74,7 +74,7 @@ class App extends React.Component {
           {this.state.isLoggedIn && (
             <>
               <Route exact path={'/profile'} render={(props) => <Profile {...props} />} />
-              <Route exact path={'/article'} render={(props) => <Article {...props} />} />
+              <Route path="/article/:handle" component={Article} />
             </>
           )}
           {!this.state.isLoggedIn && (
@@ -90,3 +90,5 @@ class App extends React.Component {
 }
 
 export default App;
+
+//<Route exact path={'/article'} render={(props) => <Article {...props} />} />
