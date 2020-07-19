@@ -2,6 +2,7 @@ import React from 'react';
 import '../../css/Login.css';
 import '../../services/PostData';
 import { postData } from '../../services/PostData';
+import { Link } from 'react-router-dom';
 
 class Register extends React.Component {
   constructor(props) {
@@ -22,12 +23,13 @@ class Register extends React.Component {
         .then((res) => res.json())
         .then((resJSON) => {
           if (resJSON.userData) {
-            this.props.handleSuccesfulAuth(resJSON.userData);
+            this.props.handleLogin(resJSON.userData);
           } else {
             console.log('Error on registration');
           }
         });
     }
+    this.props.history.push('/dashboard');
   }
 
   onChange(elem) {
@@ -42,10 +44,14 @@ class Register extends React.Component {
         <div className="row fixed-top mt-4">
           <div className="ml-auto mr-5">
             <button className="button-link mx-2 custom-text" onClick={this.props.redirectHome}>
-              Volver
+              <Link to="/" className="card-link custom-text">
+                Volver
+              </Link>
             </button>
             <button className="button-link mx-2 custom-text" onClick={this.props.redirectLogin}>
-              Ingresar
+              <Link to="/login" className="card-link custom-text">
+                Ingresar
+              </Link>
             </button>
           </div>
         </div>

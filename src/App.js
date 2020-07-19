@@ -1,10 +1,14 @@
 import React from 'react';
 import './css/App.css';
 import './css/navbar.css';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './components/home/Home';
+import { getData } from './services/GetData';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Register from './components/auth/Register';
+import Login from './components/auth/Login';
 import Profile from './components/profile/Profile';
-import {getData} from './services/GetData';
+import Article from './components/article/Article';
+import Dashboard from './components/dashboard/Dashboard';
 
 class App extends React.Component {
   constructor(props) {
@@ -14,66 +18,74 @@ class App extends React.Component {
       user: {},
     };
     this.handleLogin = this.handleLogin.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
     this.checkLoginStatus = this.checkLoginStatus.bind(this);
   }
 
   componentDidMount() {
     this.checkLoginStatus();
+    let token = sessionStorage.getItem('access_token');
+    let user = JSON.parse(sessionStorage.getItem('user'));
+    this.setState({
+      isLoggedIn: !!token,
+      user: user,
+    });
   }
 
   checkLoginStatus() {
     if (!sessionStorage.getItem('access_token')) {
-      this.setState({isLoggedIn: false})
+      this.setState({ isLoggedIn: false });
     } else {
       getData('isLoggedIn', sessionStorage.getItem('access_token'))
-          .then((res) => res.json())
-          .then((res) => { this.setState({isLoggedIn: res.logged_in})})
-          .catch((error) => {
-            console.log('check login error', error);
-          });
+        .then((res) => res.json())
+        .then((res) => {
+          this.setState({ isLoggedIn: res.logged_in });
+        })
+        .catch((error) => {
+          console.log('check login error', error);
+        });
     }
   }
 
   handleLogin(data) {
+    sessionStorage.setItem('user', JSON.stringify(data.user));
+    sessionStorage.setItem('access_token', JSON.stringify(data.access_token).slice(1, -1));
     this.setState({
       isLoggedIn: true,
       user: data,
     });
-    sessionStorage.setItem('access_token',  JSON.stringify(data.access_token).slice(1, -1));
+  }
+
+  handleLogout() {
+    this.setState({
+      isLoggedIn: false,
+      user: {},
+    });
+    sessionStorage.removeItem('user');
+    sessionStorage.removeItem('access_token');
   }
 
   render() {
     return (
-      <div className="app">
-        <BrowserRouter>
-          <Switch>
-            <Route
-              exact
-              path={'/'}
-              render={(props) => <Home {...props} isLoggedIn={this.state.isLoggedIn} user={this.state.user} handleLogin={this.handleLogin} />}
-            />
-            <Route
-              exact
-              path={'/dashboard'}
-              render={(props) => <Home {...props} isLoggedIn={this.state.isLoggedIn} user={this.state.user} handleLogin={this.handleLogin} />}
-            />
-            <Route exact path={'/profile'} render={(props) => <Profile {...props} isLoggedIn={this.state.isLoggedIn} user={this.state.user} />} />
-          </Switch>
-        </BrowserRouter>
-      </div>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path={'/dashboard'} render={(props) => <Dashboard {...props} handleLogin={this.handleLogin} />} />
+          <Route exact path={'/'} render={(props) => <Home {...props} handleLogin={this.handleLogin} />} />
+          {this.state.isLoggedIn && (
+            <>
+              <Route exact path={'/profile'} render={(props) => <Profile {...props} />} />
+              <Route exact path={'/article'} render={(props) => <Article {...props} />} />
+            </>
+          )}
+          {!this.state.isLoggedIn && (
+            <>
+              <Route exact path="/register" render={(props) => <Register {...props} handleLogin={this.handleLogin} />} />
+              <Route exact path="/login" render={(props) => <Login {...props} handleLogin={this.handleLogin} />} />
+            </>
+          )}
+        </Switch>
+      </BrowserRouter>
     );
-
-    // if (this.state.redirect) {
-    //     return <Login />;
-    // } else {
-    //     return (
-    //         <div>
-    //             <Navbar isLoggedIn={true} username={'Ian Didriksen'} email={'iandidri@gmail.com'} />
-    //             <PageContent isLoggedIn={true} username={'Ian Didriksen'} email={'iandidri@gmail.com'} />
-    //             <Footer />
-    //         </div>
-    //     );
-    // }
   }
 }
 

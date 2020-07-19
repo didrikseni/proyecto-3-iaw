@@ -3,6 +3,7 @@ import '../../css/navbar.css';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
+import { Link } from 'react-router-dom';
 
 function NavbarList(props) {
   return props.isLoggedIn ? (
@@ -16,13 +17,14 @@ function NavbarList(props) {
         <div className="nabvar-item nav-pills nabvar">
           <div className="dropdown">
             <button className="dropdown-toggle custom-text-navbar button-link" data-toggle="dropdown">
-              {props.user.user.name}
+              {props.user.name}
             </button>
             <div className="dropdown-menu dropdown-menu-sm-right">
               <button className="dropdown-item button-link">Editar perfil</button>
-              <button className="dropdown-item button-link">Action2</button>
-              <div className="dropdown-divider"></div>
-              <button className="dropdown-item button-link">Salir</button>
+              <div className="dropdown-divider" />
+              <button className="dropdown-item button-link" onClick={props.logout}>
+                Salir
+              </button>
             </div>
           </div>
         </div>
@@ -33,14 +35,18 @@ function NavbarList(props) {
       <li className="mx-2 nav-item">
         <div className="nabvar-item nav-pills nabvar">
           <button className="custom-text-navbar button-link" onClick={props.redirectLogin}>
-            Ingresar
+            <Link to="/login" className="custom-text-navbar button-link card-link">
+              Ingresar
+            </Link>
           </button>
         </div>
       </li>
       <li className="mx-2 nav-item">
         <div className="nabvar-item nav-pills nabvar">
           <button className="custom-text-navbar button-link" onClick={props.redirectRegister}>
-            Registrarse
+            <Link to="/register" className="custom-text-navbar button-link card-link">
+              Registrarse
+            </Link>
           </button>
         </div>
       </li>
@@ -52,24 +58,39 @@ class Navbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: props.isLoggedIn,
-      user: props.user,
+      isLoggedIn: false,
+      user: {},
     };
+  }
+
+  componentDidMount() {
+    let token = sessionStorage.getItem('access_token');
+    let user = JSON.parse(sessionStorage.getItem('user'));
+    this.setState({
+      isLoggedIn: !!token,
+      user: user,
+    });
   }
 
   render() {
     return (
       <nav className="navbar navbar-expand-sm nav position-absolute fixed-top">
         <div className="nabvar-item nav-pills nabvar">
-          <h5 className="custom-text-navbar">Portal UNS</h5>
+          <button className="custom-text-navbar button-link">
+            {this.state.isLoggedIn && (
+              <Link to={'/dashboard'} className="custom-text-navbar button-link card-link ">
+                Portal UNS
+              </Link>
+            )}
+            {!this.state.isLoggedIn && (
+              <Link to={'/'} className="custom-text-navbar button-link card-link">
+                Portal UNS
+              </Link>
+            )}
+          </button>
         </div>
         <div className="ml-auto">
-          <NavbarList
-            isLoggedIn={this.props.isLoggedIn}
-            user={this.props.user}
-            redirectLogin={this.props.redirectLogin}
-            redirectRegister={this.props.redirectRegister}
-          />
+          <NavbarList isLoggedIn={this.state.isLoggedIn} user={this.state.user} logout={this.state.logout} />
         </div>
       </nav>
     );
