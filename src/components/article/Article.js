@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { getData } from '../../services/GetData';
 import { Editor } from '@tinymce/tinymce-react';
+import { Link } from 'react-router-dom';
 
 class Article extends React.Component {
   constructor(props) {
@@ -15,10 +16,9 @@ class Article extends React.Component {
   }
 
   getArticleFromAPI(article, token) {
-    getData('api_article/' + article, token)
+    getData('api_articles/' + article, token)
       .then((res) => res.json())
       .then((resJSON) => {
-        console.log(resJSON);
         this.setState({ article: resJSON });
       });
   }
@@ -29,28 +29,53 @@ class Article extends React.Component {
         <div className="page-content mx-5">
           <div className="content-flex">
             <div id="title" className="custom-text">
-              <h2>Title</h2>
+              <h2>{this.state ? this.state.article.title : 'Loading..'}</h2>
             </div>
             <div className="custom-text flex-grow-1">
               <div className="flex-grow-1">
                 <Editor
+                  value={this.state ? this.state.article.content : ''}
                   apiKey="3yn19ck0mgv6qus3qkej8vrfp9x3q45am4ikvprcke9nzs7q"
-                  init={
-                    {
-                      /* your other settings */
-                    }
-                  }
+                  init={{
+                    selector: 'textarea',
+                    toolbar: false,
+                    menubar: false,
+                    tinycomments_mode: 'embedded',
+                    tinycomments_author: 'Author name',
+                    readonly: 1,
+                    plugins: ['autoresize', 'preview', 'autolink'],
+                    branding: false,
+                  }}
                 />
               </div>
               <br /> <br />
             </div>
             <div className="row custom-text">
               <div className="ml-auto">
-                <h4>Autor: NAME</h4>
+                {this.state ? (
+                  <h4>
+                    Autor:{' '}
+                    <Link to={'/profile/' + this.state.article.user_id} className="custom-text card-link">
+                      {this.state.article.author}
+                    </Link>
+                  </h4>
+                ) : (
+                  <h4> Loading.. </h4>
+                )}
               </div>
             </div>
             <div className="row custom-text mb-5">
-              <p className="custom-text">tags:TAG_NAME</p>
+              <ul className="list-unstyled">
+                {this.state ? (
+                  this.state.article.tags.map((tag) => (
+                    <Link to={'/tags/' + tag.id} className="card-link custom-text m-2">
+                      {tag.name}
+                    </Link>
+                  ))
+                ) : (
+                  <li className="custom-text">Loading tags...</li>
+                )}
+              </ul>
             </div>
           </div>
         </div>

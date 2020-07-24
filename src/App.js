@@ -71,10 +71,11 @@ class App extends React.Component {
         <Switch>
           <Route exact path={'/dashboard'} render={(props) => <Dashboard {...props} handleLogin={this.handleLogin} />} />
           <Route exact path={'/'} render={(props) => <Home {...props} handleLogin={this.handleLogin} />} />
+          <Route exact path={'/tags/:handle'} render={Home}></Route>
+          <Route path="/article/:handle" component={Article} />
           {this.state.isLoggedIn && (
             <>
               <Route exact path={'/profile'} render={(props) => <Profile {...props} />} />
-              <Route path="/article/:handle" component={Article} />
             </>
           )}
           {!this.state.isLoggedIn && (
