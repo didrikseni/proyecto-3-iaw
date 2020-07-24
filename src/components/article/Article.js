@@ -2,6 +2,9 @@ import * as React from 'react';
 import { getData } from '../../services/GetData';
 import { Editor } from '@tinymce/tinymce-react';
 import { Link } from 'react-router-dom';
+import Footer from '../footer/Footer';
+import Navbar from '../navbar/navbar';
+import '../../css/App.css';
 
 class Article extends React.Component {
   constructor(props) {
@@ -26,6 +29,7 @@ class Article extends React.Component {
   render() {
     return (
       <>
+        <Navbar />
         <div className="page-content mx-5">
           <div className="content-flex">
             <div id="title" className="custom-text">
@@ -79,6 +83,7 @@ class Article extends React.Component {
             </div>
           </div>
         </div>
+        <Footer />
       </>
     );
   }

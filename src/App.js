@@ -9,6 +9,7 @@ import Login from './components/auth/Login';
 import Profile from './components/profile/Profile';
 import Article from './components/article/Article';
 import Dashboard from './components/dashboard/Dashboard';
+import NewArticle from './components/article/NewArticle';
 
 class App extends React.Component {
   constructor(props) {
@@ -76,6 +77,7 @@ class App extends React.Component {
           {this.state.isLoggedIn && (
             <>
               <Route exact path={'/profile'} render={(props) => <Profile {...props} />} />
+              <Route exact path={'/new-article'} render={(props) => <NewArticle {...props} />} />
             </>
           )}
           {!this.state.isLoggedIn && (

@@ -10,7 +10,9 @@ function NavbarList(props) {
     <ul className="navbar-nav nav-pills nav-justified">
       <li className="mx-2 nav-item">
         <div className="nabvar-item nav-pills nabvar">
-          <h5 className="custom-text-navbar">Articulo</h5>
+          <Link to={'/new-article'} className="custom-text-navbar button-link card-link custom-nav-item">
+            Articulo
+          </Link>
         </div>
       </li>
       <li className="mx-2 nav-item">
@@ -78,7 +80,7 @@ class Navbar extends React.Component {
         <div className="nabvar-item nav-pills nabvar">
           <button className="custom-text-navbar button-link">
             {this.state.isLoggedIn && (
-              <Link to={'/dashboard'} className="custom-text-navbar button-link card-link ">
+              <Link to={'/dashboard'} className="custom-text-navbar button-link card-link">
                 Portal UNS
               </Link>
             )}
