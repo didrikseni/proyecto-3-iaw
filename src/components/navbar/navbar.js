@@ -11,7 +11,7 @@ function NavbarList(props) {
       <li className="mx-2 nav-item">
         <div className="nabvar-item nav-pills nabvar">
           <Link to={'/new-article'} className="custom-text-navbar button-link card-link custom-nav-item">
-            Articulo
+            <i class="fas fa-cloud-upload-alt fa-sm custom-text-navbar"> Artículo</i>
           </Link>
         </div>
       </li>

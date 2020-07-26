@@ -27,15 +27,12 @@ nav ul li button {
   padding: 15px;
   margin: 0 5px;
   font-size: large;
-  font-weight: 900;
+  font-weight: 400;
 }
 
 .page-footer {
   margin-top: auto;
   width: auto;
-}
-
-.sticky-footer {
   flex-shrink: 1;
   background-color: var(--color-accent) !important;
 }

@@ -4,6 +4,7 @@ import { Editor } from '@tinymce/tinymce-react';
 import Footer from '../footer/Footer';
 import Navbar from '../navbar/navbar';
 import '../../css/App.css';
+import { postData } from '../../services/PostData';
 
 class NewArticle extends React.Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class NewArticle extends React.Component {
     this.onChangeEditor = this.onChangeEditor.bind(this);
     this.changeLocalStorage = this.changeLocalStorage.bind(this);
     this.clearLocalStorage = this.clearLocalStorage.bind(this);
+    this.submitForm = this.submitForm.bind(this);
   }
 
   componentDidMount() {
@@ -62,11 +64,21 @@ class NewArticle extends React.Component {
   onChange(elem) {
     this.setState({ [elem.target.name]: elem.target.value });
     this.changeLocalStorage(elem.target.name, elem.target.value);
+    alert(elem.target.value);
   }
 
   onChangeEditor(content, editor) {
     this.setState({ content: content.target.getContent() });
     this.changeLocalStorage('content', content.target.getContent());
+  }
+
+  submitForm() {
+    let formData = {
+      title: this.state.title,
+      content: this.state.content,
+      description: this.state.description,
+    };
+    postData('api_articles', formData, sessionStorage.getItem('access_token'));
   }
 
   render() {
@@ -157,7 +169,9 @@ class NewArticle extends React.Component {
 
           <div className="form-group row justify-content-end mr-5">
             <div className="col-auto">
-              <button className="custom-button">Publicar</button>
+              <button className="custom-button" onClick={this.submitForm}>
+                Publicar
+              </button>
             </div>
           </div>
         </form>
