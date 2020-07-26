@@ -1,5 +1,5 @@
-var BaseUrl = 'http://127.0.0.1:8000/api/';
-//var BaseUrl = 'https://portal-uns.herokuapp.com/api/'
+//const BaseUrl = 'http://127.0.0.1:8000/api/';
+const BaseUrl = 'https://portal-uns.herokuapp.com/api/'
 
 function postData(type, data, auth = '') {
   let init;

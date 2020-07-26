@@ -6,10 +6,10 @@ import { getData } from './services/GetData';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
-import Profile from './components/profile/Profile';
 import Article from './components/article/Article';
 import Dashboard from './components/dashboard/Dashboard';
 import NewArticle from './components/article/NewArticle';
+import UserProfile from "./components/profile/UserProfile";
 
 class App extends React.Component {
   constructor(props) {
@@ -76,7 +76,7 @@ class App extends React.Component {
           <Route path="/article/:handle" component={Article} />
           {this.state.isLoggedIn && (
             <>
-              <Route exact path={'/profile'} render={(props) => <Profile {...props} />} />
+              <Route exact path={'/profile/:handle'} render={(props) => <UserProfile {...props} />} />
               <Route exact path="/new-article" render={(props) => <NewArticle {...props} />} />
             </>
           )}
