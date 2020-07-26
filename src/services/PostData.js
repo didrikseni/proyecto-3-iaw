@@ -2,7 +2,7 @@ var BaseUrl = 'http://127.0.0.1:8000/api/';
 //var BaseUrl = 'https://portal-uns.herokuapp.com/api/'
 
 function postData(type, data, auth = '') {
-  let init = {};
+  let init;
   auth === ''
     ? (init = {
         method: 'POST',

@@ -26,6 +26,7 @@ class Articles extends React.Component {
           this.setState({ articles: articlesJson, isLoading: false });
         });
     }
+    window.scrollTo(0, 0)
   }
 
   render() {
@@ -56,7 +57,12 @@ class Articles extends React.Component {
                   <p className="custom-text">{article.description}</p>
                 </div>
                 <div className="col-4 ml-auto">
-                  <p className="custom-text">Autor: {article.author}</p>
+                  <p className="custom-text">
+                    Autor:
+                    <Link to={'/profile/' + article.user_id} className="card-link custom-text">
+                      {article.author}
+                    </Link>
+                  </p>
                 </div>
               </div>
               <hr></hr>

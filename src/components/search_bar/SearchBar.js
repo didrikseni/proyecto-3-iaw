@@ -2,14 +2,14 @@ import React from 'react';
 
 function SearchBar() {
   return (
-    <div className="row">
+    <div className="row justify-content-center mb-5">
       <div className="col-8">
         <div className="form-group">
-          <label>Buscar Artículo</label>
-          <input type="text" className="form-control" name="article" aria-describedby="helpId" placeholder="Artículo" />
+          <br />
+          <input type="text" className="form-control" name="article" aria-describedby="helpId" placeholder="Buscar artículo" />
         </div>
       </div>
-      <div className="col-4 ml-auto">
+      <div className="col-auto">
         <button className="custom-button">Buscar</button>
       </div>
     </div>
