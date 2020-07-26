@@ -5,6 +5,7 @@ import Footer from '../footer/Footer';
 import Navbar from '../navbar/navbar';
 import '../../css/App.css';
 import { postData } from '../../services/PostData';
+import { Link } from 'react-router-dom';
 
 class NewArticle extends React.Component {
   constructor(props) {
@@ -64,7 +65,6 @@ class NewArticle extends React.Component {
   onChange(elem) {
     this.setState({ [elem.target.name]: elem.target.value });
     this.changeLocalStorage(elem.target.name, elem.target.value);
-    alert(elem.target.value);
   }
 
   onChangeEditor(content, editor) {
@@ -78,7 +78,16 @@ class NewArticle extends React.Component {
       content: this.state.content,
       description: this.state.description,
     };
-    postData('api_articles', formData, sessionStorage.getItem('access_token'));
+
+    postData('api_articles', formData, sessionStorage.getItem('access_token'))
+      .then((res) => res.json())
+      .then((resJSON) => {
+        if (resJSON.userData) {
+          this.props.history.push('/dashboard');
+        } else {
+          console.log('Error loggin in');
+        }
+      });
   }
 
   render() {
@@ -169,9 +178,11 @@ class NewArticle extends React.Component {
 
           <div className="form-group row justify-content-end mr-5">
             <div className="col-auto">
-              <button className="custom-button" onClick={this.submitForm}>
-                Publicar
-              </button>
+              <Link to={'/dashboard'} className="card-link">
+                <button className="custom-button" onClick={this.submitForm}>
+                  Publicar
+                </button>
+              </Link>
             </div>
           </div>
         </form>

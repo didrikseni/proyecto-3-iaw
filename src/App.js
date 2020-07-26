@@ -72,12 +72,12 @@ class App extends React.Component {
         <Switch>
           <Route exact path={'/dashboard'} render={(props) => <Dashboard {...props} handleLogin={this.handleLogin} />} />
           <Route exact path={'/'} render={(props) => <Home {...props} handleLogin={this.handleLogin} />} />
-          <Route exact path={'/tags/:handle'} render={Home}></Route>
+          <Route exact path={'/tags/:handle'} render={Home} />
           <Route path="/article/:handle" component={Article} />
           {this.state.isLoggedIn && (
             <>
               <Route exact path={'/profile'} render={(props) => <Profile {...props} />} />
-              <Route exact path={'/new-article'} render={(props) => <NewArticle {...props} />} />
+              <Route exact path="/new-article" render={(props) => <NewArticle {...props} />} />
             </>
           )}
           {!this.state.isLoggedIn && (
@@ -93,5 +93,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-//<Route exact path={'/article'} render={(props) => <Article {...props} />} />
