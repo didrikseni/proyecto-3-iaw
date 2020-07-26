@@ -31,8 +31,6 @@ nav ul li button {
 }
 
 .page-footer {
-  margin-top: auto;
-  width: auto;
-  flex-shrink: 1;
+  flex-shrink: 0;
   background-color: var(--color-accent) !important;
 }
