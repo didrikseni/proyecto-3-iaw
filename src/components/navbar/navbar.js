@@ -4,6 +4,7 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import { Link } from 'react-router-dom';
+import { postData } from '../../services/PostData';
 
 function NavbarList(props) {
   return props.isLoggedIn ? (
@@ -63,6 +64,7 @@ class Navbar extends React.Component {
       isLoggedIn: false,
       user: {},
     };
+    this.logout = this.logout.bind(this);
   }
 
   componentDidMount() {
@@ -72,6 +74,26 @@ class Navbar extends React.Component {
       isLoggedIn: !!token,
       user: user,
     });
+  }
+
+  logout() {
+    this.setState({
+      isLoggedIn: false,
+      user: {},
+    });
+    let token = sessionStorage.getItem('access_token');
+    sessionStorage.removeItem('user');
+    sessionStorage.removeItem('access_token');
+    this.logoutFromAPI(token);
+    window.location.reload(false);
+  }
+
+  logoutFromAPI(token) {
+    postData('logout', '', token)
+      .then((res) => res.json())
+      .then((resJSON) => {
+        console.log(resJSON);
+      });
   }
 
   render() {
@@ -92,7 +114,7 @@ class Navbar extends React.Component {
           </button>
         </div>
         <div className="ml-auto">
-          <NavbarList isLoggedIn={this.state.isLoggedIn} user={this.state.user} logout={this.state.logout} />
+          <NavbarList isLoggedIn={this.state.isLoggedIn} user={this.state.user} logout={this.logout} />
         </div>
       </nav>
     );

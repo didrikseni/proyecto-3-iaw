@@ -9,7 +9,7 @@ import Login from './components/auth/Login';
 import Article from './components/article/Article';
 import Dashboard from './components/dashboard/Dashboard';
 import NewArticle from './components/article/NewArticle';
-import UserProfile from "./components/profile/UserProfile";
+import UserProfile from './components/profile/UserProfile';
 
 class App extends React.Component {
   constructor(props) {
@@ -19,7 +19,6 @@ class App extends React.Component {
       user: {},
     };
     this.handleLogin = this.handleLogin.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
     this.checkLoginStatus = this.checkLoginStatus.bind(this);
   }
 
@@ -55,15 +54,6 @@ class App extends React.Component {
       isLoggedIn: true,
       user: data,
     });
-  }
-
-  handleLogout() {
-    this.setState({
-      isLoggedIn: false,
-      user: {},
-    });
-    sessionStorage.removeItem('user');
-    sessionStorage.removeItem('access_token');
   }
 
   render() {
