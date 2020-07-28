@@ -1,0 +1,36 @@
+/* Custom navbar */
+
+.custom-text-navbar {
+  color: var(--font-navbar) !important;
+}
+
+nav {
+  width: auto;
+  margin: 0 auto;
+  background: var(--color-accent) !important;
+  padding: 50px 0;
+}
+
+nav ul {
+  list-style: none;
+  text-align: center;
+}
+
+nav ul li {
+  display: inline-block;
+}
+
+nav div button,
+nav ul li .custom-nav-item,
+nav ul li button {
+  display: block;
+  padding: 15px;
+  margin: 0 5px;
+  font-size: large;
+  font-weight: 400;
+}
+
+.page-footer {
+  flex-shrink: 0;
+  background-color: var(--color-accent) !important;
+}
